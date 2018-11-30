@@ -1,0 +1,39 @@
+{% extends "base.jinja2" %}
+{% block content %}
+    <div class="page-header">
+        <h1>Create Store</h1>
+    </div>
+    <div class="form">
+        <form method="post">
+            <div class="form-group">
+                <label for="name">Store name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <label for="url_prefix">Store URL Prefix</label>
+                <input type="text" class="form-control" id="url_prefix" name="url_prefix" placeholder="http://..."
+                aria-describedby="storeURLPrefixHelp">
+                <span id="storeURLPrefixHelp" class="help-block">Prefix of URLs of all items in this Store start with</span>
+            </div>
+            <div class="form-group">
+                <label for="tag_name">Tag name</label>
+                <input type="text" class="form-control" id="tag_name" name="tag_name" placeholder="span" value="span"
+                       aria-describedby="tagNameHelp">
+                <span id="tagNameHelp" class="help-block">HTML tag of the item that contains the item price(usually 'span')</span>
+            </div>
+            <div class="form-group">
+                <label for="query">Query</label>
+                <input type="text" class="form-control" id="query" name="query" placeholder='{"id": "..."}'
+                       aria-describedby="queryHelpBlock">
+                <span id="queryHelpBlock" class="help-block">JSON query to find the specific tag with the item's price in this store</span>
+            </div>
+            <div class="form-group">
+                <label for="review">Review</label>
+                <input type="text" class="form-control" id="review" name="review" placeholder="0 <= review <= 5.0"
+                       aria-describedby="reviewHelpBlock">
+                <span id="reviewHelpBlock" class="help-block">The customer review should be in range [0,5.0]!</span>
+            </div>
+            <button type="submit" class="btn btn-default">Create</button>
+        </form>
+    </div>
+{% endblock %}

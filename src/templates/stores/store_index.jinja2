@@ -1,0 +1,27 @@
+{% extends "base.jinja2" %}
+{% block content %}
+    <div class="page-header">
+        <h1>Stores
+            <small>list of stores supported</small>
+        </h1>
+        <a class="btn btn-success" href="{{ url_for('stores.view_by_review', order="DESC")}}"><span
+                class="glyphicon glyphicon-heart"></span> Top rated</a>
+
+        <a class="btn btn-success" href="{{ url_for('stores.view_by_review', order="ASC")}}"><span
+                class="glyphicon glyphicon-remove"></span> Least liked</a>
+    </div>
+    <div class="list-group">
+        {% for store in stores %}
+            <a href="{{ url_for('stores.store_page', store_name=store.name) }}" class="list-group-item">
+                <h4 class="list-group-item-heading">{{ store.name }} (review: {{ store.review }})</h4>
+                <p class="list-group-item-text">All URLs in this store should start with
+                    <strong>{{ store.url_prefix }}</strong></p>
+            </a>
+        {% endfor %}
+    </div>
+
+    {% if session['email'] in config.ADMINS %}
+        <a class="btn btn-success" href="{{ url_for('stores.create_store') }}"><span
+                class="glyphicon glyphicon-plus"></span> Create new</a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.jinja2" %}
+{% block content %}
+    <div class="page-header">
+        <h1>Alerts
+            <small>showing already existing alerts</small>
+        </h1>
+    </div>
+    <div class="list-group">
+        {% for alert in alerts %}
+            <a href="/alerts/{{ alert.alert_id }}"
+               class="list-group-item {{ 'list-group-item-warning' if not alert.active else '' }}">
+                <h4 class="list-group-item-heading">
+                    {{ "<span class='glyphicon glyphicon-remove-circle'></span> " if not alert.active else '' }}
+                    Alert for ({{ alert.item_name }})
+                </h4>
+                <p>Price limit <strong>$ {{ alert.price_limit }}</strong></p>
+                <p class="list-group-item-text">Last lowest price found <strong>${{ alert.min_price }}</strong><br/>Last
+                    checked on <strong>{{ alert.last_check_time.strftime("%m-%d-%Y %H:%M") }}</strong></p>
+            </a>
+        {% endfor %}
+    </div>
+    {% if not user.isvip and alerts|length >= user.list_limit %}
+        <a class="btn btn-danger" ><span
+                class="glyphicon glyphicon-remove"></span> Alerts Limit Reached</a>
+    {% else %}
+        <a class="btn btn-success" href="{{ url_for('alerts.create_alert') }}"><span
+                class="glyphicon glyphicon-plus"></span> Create new</a>
+    {% endif %}
+{% endblock %}
